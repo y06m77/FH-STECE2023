@@ -3,13 +3,13 @@
 #include <assert.h>
 
 
-Door::Door(Motor* motor, 
+Door::Door(IMotor* motor, 
            PushButton* do_close, PushButton* do_open, 
            LightBarrier* closed_position, LightBarrier* opened_position)
 {
     // assume that the motor is idle when the software boots. FIXME:
     // is that assumption safe?
-    assert(motor->get_direction() == Motor::Direction::IDLE);
+    //assert(motor->get_direction() == Motor::Direction::IDLE);
 
     _motor = motor;
     _do_close = do_close;

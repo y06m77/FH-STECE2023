@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
-
+#include <motor-mock.h>
 #include <door.h>
 
 
 TEST(door_suite, straightforward_open)
 {
     // build a door and its parts
-    Motor motor(Motor::Direction::IDLE);
+    MotorMock motor(IMotor::Direction::IDLE);
     PushButton do_close(PushButton::State::RELEASED);
     PushButton do_open(PushButton::State::RELEASED);
     LightBarrier closed_position(LightBarrier::State::BEAM_BROKEN);  // <-- door in "closed" position
@@ -20,13 +20,13 @@ TEST(door_suite, straightforward_open)
     // all idle: no button pressed -> motor must remain idle at
     // check()
     door.check();
-    ASSERT_EQ(motor.get_direction(), Motor::Direction::IDLE);
+    ASSERT_EQ(motor.get_direction(), IMotor::Direction::IDLE);
 
     // "open" button pressed -> motor direction must be set to
     // "opening"
     do_open.set_state(PushButton::State::PRESSED);
     door.check();    
-    ASSERT_EQ(motor.get_direction(), Motor::Direction::FORWARD);
+    ASSERT_EQ(motor.get_direction(), IMotor::Direction::FORWARD);
 
     // "opened" position reached (light barrier's beam broken) ->
     // motor stopped
@@ -35,5 +35,5 @@ TEST(door_suite, straightforward_open)
                                                                    //     if one beam is broken, the other must be solid, 
                                                                    //     and vice versa
     door.check();
-    ASSERT_EQ(motor.get_direction(), Motor::Direction::IDLE);
+    ASSERT_EQ(motor.get_direction(), IMotor::Direction::IDLE);
 }

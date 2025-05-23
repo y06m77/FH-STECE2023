@@ -19,7 +19,7 @@ public:
     };
 
 
-    Door(Motor* motor, 
+    Door(IMotor* motor, 
          PushButton* do_close, PushButton* do_open,
          LightBarrier* closed_position, LightBarrier* opened_position);
     void check();
@@ -28,7 +28,7 @@ public:
     State get_state() const { return _state; }
 
 private:
-    Motor* _motor;
+    IMotor* _motor;
     PushButton* _do_close;
     PushButton* _do_open;
     LightBarrier* _closed_position;
